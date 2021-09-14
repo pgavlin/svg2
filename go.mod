@@ -1,4 +1,4 @@
-module github.com/pgavlin/svg
+module github.com/pgavlin/svg2
 
 go 1.15
 
