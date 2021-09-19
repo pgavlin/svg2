@@ -34,6 +34,17 @@ func (i *SVGImage) At(x, y int) color.Color {
 	return i.ctx.Image().At(x, y)
 }
 
+func (i *SVGImage) Scale(factor float64) (*SVGImage, error) {
+	ctx := NewScaledContext(i.doc, factor)
+	if err := Render(ctx, i.doc); err != nil {
+		return nil, err
+	}
+	return &SVGImage{
+		doc: i.doc,
+		ctx: ctx,
+	}, nil
+}
+
 func Decode(r io.Reader) (image.Image, error) {
 	var doc SVG
 	if err := xml.NewDecoder(r).Decode(&doc); err != nil {
