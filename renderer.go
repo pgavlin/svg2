@@ -18,6 +18,14 @@ func NewContext(svg *SVG) *gg.Context {
 	return gg.NewContext(1024, 1024)
 }
 
+// NewScaledContext creates a new render context for an SVG document with the given scaling factor.
+func NewScaledContext(svg *SVG, scale float64) *gg.Context {
+	if svg.Width.Length.Value != 0 && svg.Height.Length.Value != 0 {
+		return gg.NewContext(int(svg.Width.Length.Value*scale), int(svg.Height.Length.Value*scale))
+	}
+	return gg.NewContext(int(1024*scale), int(1024*scale))
+}
+
 // Render renders an SVG document to the given context.
 func Render(ctx *gg.Context, svg *SVG) error {
 	// Graphics are painted and composited in rendering-tree order, subject to re-ordering based on the paint-order property. Note that elements that have no visual paint may still be in the rendering tree.

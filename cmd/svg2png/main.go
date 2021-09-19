@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/pgavlin/svg"
+	"github.com/pgavlin/svg2"
 )
 
 func main() {
