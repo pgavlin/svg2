@@ -20,10 +20,14 @@ func NewContext(svg *SVG) *gg.Context {
 
 // NewScaledContext creates a new render context for an SVG document with the given scaling factor.
 func NewScaledContext(svg *SVG, scale float64) *gg.Context {
+	width, height := 1024, 1024
 	if svg.Width.Length.Value != 0 && svg.Height.Length.Value != 0 {
-		return gg.NewContext(int(svg.Width.Length.Value*scale), int(svg.Height.Length.Value*scale))
+		width, height = int(svg.Width.Length.Value), int(svg.Height.Length.Value)
 	}
-	return gg.NewContext(int(1024*scale), int(1024*scale))
+
+	ctx := gg.NewContext(int(float64(width)*scale), int(float64(height)*scale))
+	ctx.Scale(scale, scale)
+	return ctx
 }
 
 // Render renders an SVG document to the given context.
